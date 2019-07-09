@@ -4,17 +4,40 @@ canvas.height = window.innerHeight;
 
 var c = canvas.getContext('2d');
 
-var x = Math.random() * window.innerWidth;
-var y = Math.random() * window.innerHeight;
-var dx = 0;
-var dy = 4;
-var radius = 5;
+//JavaScript Object
+class Circle {
+    constructor(x, y, dx, dy, radius) {
+        this.x = x;
+        this.y = y;
+        this.dx = dx;
+        this.dy = dy;
+        this.radius = radius;
+
+        this.draw = () => {
+            //Circle
+            c.beginPath();
+            c.fillStyle = 'steelblue';
+            c.arc(this.x, this.y, this.radius, Math.PI * 2, false);
+            c.fill();
+        }
+        this.update = () => {
+            if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
+                this.dy = -this.dy;
+            }
+            this.x += this.dx;
+            this.y += this.dy;
+            this.draw();
+        }
+    }
+}
+var circle = new Circle(200, 200, 0, 4, 5);
 
 //Animation Loop
 function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, innerWidth, innerHeight); //clears entire canvas
-    
+    circle.update();
+
     //Rectangles
     c.fillStyle = 'gold';
     c.fillRect(300, 300, 100, 100);
@@ -29,18 +52,6 @@ function animate() {
     c.lineTo(300, 300);
     c.strokeStyle = 'maroon';
     c.stroke();
-
-    //Circles
-    c.beginPath();
-    c.fillStyle = 'steelblue';
-    c.arc(x, y, radius, Math.PI * 2, false);
-    c.fill();
-
-    if (y + radius > innerHeight || y - radius < 0) {
-        dy = -dy;
-    }
-    x += dx;
-    y += dy;
 }
 
 animate();
