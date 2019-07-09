@@ -1,10 +1,10 @@
-var canvas = document.querySelector('canvas');
+const canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-var c = canvas.getContext('2d');
+const c = canvas.getContext('2d');
 
-//JavaScript Object
+//JavaScript class constructor
 class Circle {
     constructor(x, y, dx, dy, radius) {
         this.x = x;
@@ -30,13 +30,22 @@ class Circle {
         }
     }
 }
-var circle = new Circle(200, 200, 0, 4, 5);
+
+const circleArray = [];
+
+for (let i = 0; i < 100; i++) {
+    let radius = 5;
+    let x = Math.random() * (innerWidth - radius * 2) + radius;
+    let y = Math.random() * (innerHeight - radius * 2) + radius;
+    let dx = 0;
+    let dy = (Math.random() + 0.1) * 4;
+    circleArray.push(new Circle(x, y, dx, dy, radius));
+}
 
 //Animation Loop
 function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, innerWidth, innerHeight); //clears entire canvas
-    circle.update();
 
     //Rectangles
     c.fillStyle = 'gold';
@@ -52,6 +61,10 @@ function animate() {
     c.lineTo(300, 300);
     c.strokeStyle = 'maroon';
     c.stroke();
+
+    for (let i = 0; i < circleArray.length; i++) {
+        circleArray[i].update();
+    }
 }
 
 animate();
