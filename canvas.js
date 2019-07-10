@@ -6,10 +6,9 @@ const c = canvas.getContext('2d');
 
 //JavaScript class constructor
 class Circle {
-    constructor(x, y, dx, dy, radius) {
+    constructor(x, y, dy, radius) {
         this.x = x;
         this.y = y;
-        this.dx = dx;
         this.dy = dy;
         this.radius = radius;
 
@@ -21,10 +20,9 @@ class Circle {
             c.fill();
         }
         this.update = () => {
-            if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
-                this.dy = -this.dy;
+            if (this.y + this.radius > innerHeight) {
+                this.y = 0;
             }
-            this.x += this.dx;
             this.y += this.dy;
             this.draw();
         }
@@ -33,13 +31,12 @@ class Circle {
 
 const circleArray = [];
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 200; i++) {
     let radius = 5;
-    let x = Math.random() * (innerWidth - radius * 2) + radius;
-    let y = Math.random() * (innerHeight - radius * 2) + radius;
-    let dx = 0;
-    let dy = (Math.random() + 0.1) * 4;
-    circleArray.push(new Circle(x, y, dx, dy, radius));
+    let x = (Math.random() * 200) + 250;
+    let y = -(Math.random() * (innerHeight - radius * 2) + radius);
+    let dy = Math.random() + 5;
+    circleArray.push(new Circle(x, y, dy, radius));
 }
 
 //Animation Loop
