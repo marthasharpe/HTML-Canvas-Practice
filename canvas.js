@@ -1,8 +1,9 @@
 const canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
 const c = canvas.getContext('2d');
+
+
 
 //JavaScript class constructor
 class Circle {
@@ -21,7 +22,7 @@ class Circle {
         }
         this.update = () => {
             if (this.y + this.radius > innerHeight) {
-                this.y = 0;
+                this.y = -(Math.random() * (innerHeight - radius * 2) + radius);;
             }
             this.y += this.dy;
             this.draw();
